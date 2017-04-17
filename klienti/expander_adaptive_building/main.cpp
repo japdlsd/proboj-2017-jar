@@ -27,6 +27,8 @@ masked_game_state _stav;   // vzdy som hrac cislo 0
 int dx[4] = {0,0,0,0};
 int dy[4] = {0,0,0,0};
 
+int highest_seen_robot = 0;
+
 // main() zavola tuto funkciu, ked nacita mapu
 void inicializuj() {
     // (sem patri vas kod)
@@ -81,6 +83,14 @@ bool is_weaker_space(const int x, const int y, const int my_power, const masked_
 
 vector<Prikaz> get_commands(masked_game_state state, mapa m) {
     vector<Prikaz> instructions;
+
+
+    // update highest power seen
+    for (int i = 0; i < state.vyska; i++) {
+        for (int j = 0; j < state.sirka; j++) {
+            highest_seen_robot = max(highest_seen_robot, state.mapa[i][j].sila_robota);
+        }
+    }
 
     vector<pair<int, int> > my_robots = get_my_robots(state);
     vector<bool> unmoved(my_robots.size(), true);
@@ -150,7 +160,8 @@ vector<Prikaz> get_commands(masked_game_state state, mapa m) {
             Prikaz p;
             p.pr = POSTAV;
             p.riadok = my_labs[t].first; p.stlpec = my_labs[t].second;
-            p.instrukcia = ((cc == 0)? ((rand() % 10 == 0)?(1):(state.zelezo - usable_labs_count + 1)) : (1)) ;
+            //p.instrukcia = ((cc == 0)? ((rand() % 10 == 0)?(highest_seen_robot + 1):(state.zelezo - (highest_seen_robot + 1) * (usable_labs_count - 1))) : (highest_seen_robot + 1)) ;
+            p.instrukcia = min(highest_seen_robot + 1, state.zelezo / usable_labs_count);
             instructions.push_back(p);
             cc++;
         }
