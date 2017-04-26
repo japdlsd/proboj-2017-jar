@@ -714,7 +714,7 @@ vector<Prikaz> get_commands_fields(masked_game_state state, mapa m) {
     }
     sort(robots_by_power.begin(), robots_by_power.end());
 
-    for (int i = static_cast<int>(my_robots.size() * (1 - 0.45)); i < my_robots.size(); i++) {
+    for (int i = static_cast<int>(my_robots.size() * (1 - 0.15)); i < my_robots.size(); i++) {
         is_hunter[robots_by_power[i].second] = true; 
     }
     
@@ -812,7 +812,7 @@ vector<Prikaz> get_commands_fields(masked_game_state state, mapa m) {
                 // is this spot interesting?
                 if (is_weaker_space(a,b,sila,state,m) 
                     && state.mapa[a][b].majitel != 0 
-                    && interesting_spots.find(make_pair(a,b)) == interesting_spots.end()
+                //    && interesting_spots.find(make_pair(a,b)) == interesting_spots.end()
                 ) {
                     interesting_spots.insert(make_pair(a,b));
                     found_interesting_spot = true;
@@ -842,7 +842,7 @@ vector<Prikaz> get_commands_fields(masked_game_state state, mapa m) {
                             cs.push_back(-10 + (very_interesting?(-20):0));
                         }
                         else if (which_way_i_went[nx][ny] != TU) {
-                            cs.push_back(-5);
+                            cs.push_back(-5 + (very_interesting?(-20):0));
                         }
                         else {
                             cs.push_back(-2);
@@ -853,14 +853,15 @@ vector<Prikaz> get_commands_fields(masked_game_state state, mapa m) {
                 }
 
                 // todo new points bfs
+                random_shuffle(order.begin(), order.end());
                 for (int k = 0; k < 4; k++) {
-                    const int nx = a + dx[k];
-                    const int ny = b + dy[k];
-                    if (is_square_valid(nx,ny,state,m) && is_weaker_space(nx,ny,sila,state,m) 
+                    const int nx = a + dx[order[k]];
+                    const int ny = b + dy[order[k]];
+                    if (is_square_valid(nx,ny,state,m) 
                         && which_way_i_went[nx][ny] == TU 
                         //&& !(state.mapa[nx][ny].majitel == 0 && state.mapa[nx][ny].sila_robota > 0)
                     )  {
-                        which_way_i_went[nx][ny] = static_cast<smer>(k);
+                        which_way_i_went[nx][ny] = static_cast<smer>(order[k]);
                         Q.push(make_pair(nx, ny));
                     }
                 }
