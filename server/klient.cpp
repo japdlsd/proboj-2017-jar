@@ -5,7 +5,7 @@ using namespace std;
 #include "klient.h"
 #include "util.h"
 
-#define CAS_DO_RESTARTU 1000
+#define CAS_DO_RESTARTU 5000
 
 Klient::Klient () {}
 

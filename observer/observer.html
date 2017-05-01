@@ -5,10 +5,15 @@
 </head>
 <body>
 
+<canvas id="colorscheme" width="1000" height="30" style="border:1px solid #d3d3d3;"></canvas>
+
 <canvas id="myCanvas" width="5000" height="5000" style="border:1px solid #d3d3d3;">
 Your browser does not support the HTML5 canvas tag.</canvas>
 
 <script>
+
+var SQSIZE = 30;
+var MARGINSIZE = 4;
 
 function mapu(){
 for (i = 0; i < vyska; i++) {
@@ -20,7 +25,8 @@ for (i = 0; i < vyska; i++) {
             if (mapa[i][j] == "3"){ctx.fillStyle = "#808000";} //77
             if (mapa[i][j] == "4"){ctx.fillStyle = "#800080";}
             if (mapa[i][j] == "5"){ctx.fillStyle = "#008080";}
-            ctx.fillRect(24*j, 24*i, 24, 24);
+            //ctx.fillRect(24*j, 24*i, 24, 24);
+            ctx.fillRect(SQSIZE*j, SQSIZE*i, SQSIZE, SQSIZE);
         }
     }
 }
@@ -56,11 +62,16 @@ for (i = 0; i < vyska; i++) {
                 if (parseInt(kola[kolo][i][j*2]) == 13){ctx.fillStyle = "#207020";x++;}
 
                 if (parseInt(kola[kolo][i][j*2]) >= 14){ctx.fillStyle = "#00FFFF";x++;}
-                if(x>0)ctx.fillRect(24*j+4, 24*i+4, 16, 16);
+                //if(x>0)ctx.fillRect(24*j+4, 24*i+4, 16, 16);
+                if(x>0)ctx.fillRect(SQSIZE*j+MARGINSIZE, SQSIZE*i+MARGINSIZE, SQSIZE - 2*MARGINSIZE, SQSIZE - 2*MARGINSIZE);
                 
                 ctx.fillStyle = "#FFFFFF";
-                ctx.font = "10px Arial";
-                if(kola[kolo][i][1+j*2]!=0)ctx.fillText(kola[kolo][i][1+j*2],24*j+6,24*i+16);
+                if ([3].indexOf(parseInt(kola[kolo][i][j*2])) >= 0) {
+                    ctx.fillStyle = "#000000";
+                }
+                ctx.font = "12px Arial";
+                //if(kola[kolo][i][1+j*2]!=0)ctx.fillText(kola[kolo][i][1+j*2],24*j+6,24*i+16);
+                if(kola[kolo][i][1+j*2]!=0)ctx.fillText(kola[kolo][i][1+j*2],SQSIZE*j+6,SQSIZE*i+SQSIZE/2);
                 
             }
         }
@@ -82,6 +93,31 @@ $.get("../zaznamy/01/observation", function(data,status){
     console.log(mapa);
     c = document.getElementById("myCanvas");
     ctx = c.getContext("2d");
+
+    function vykresli_schemu() {
+        var ctx = document.getElementById("colorscheme").getContext("2d");
+        for (i = 0; i <= 14; i++) {
+            if (i == 0){ctx.fillStyle = "#0000FF";} //volne
+            if (i == 1){ctx.fillStyle = "#00FF00";} //jedlo
+            if (i == 2){ctx.fillStyle = "#FF0000";}
+            if (i == 3){ctx.fillStyle = "#FFFF00";} //77
+            if (i == 4){ctx.fillStyle = "#FF00FF";}
+            if (i == 5){ctx.fillStyle = "#00FFF";}
+            if (i == 6){ctx.fillStyle = "#5050FF";}
+            if (i == 7){ctx.fillStyle = "#50FF50";}
+            if (i == 8){ctx.fillStyle = "#FF5050";}
+            if (i == 9){ctx.fillStyle = "#FFFF50";}
+            if (i == 10){ctx.fillStyle = "#FF50FF";}
+            if (i == 11){ctx.fillStyle = "#50FFFF";}
+            if (i == 12){ctx.fillStyle = "#702020";}
+            if (i == 13){ctx.fillStyle = "#207020";}
+
+            if (i >= 14){ctx.fillStyle = "#00FFFF";}
+            ctx.fillRect(i*30, 0, 30, 30);
+        }         
+    }
+    vykresli_schemu();
+
     for (i = 0; i < vyska; i++) {
         mapa[i]=mapa[i].split(" ");
         if(i==0){mapa[i].shift();mapa[i].shift();mapa[i].shift();}
@@ -94,6 +130,8 @@ $.get("../zaznamy/01/observation", function(data,status){
     IntervalId =setInterval(kresli,40);
 }, "text");
 }
+
+
 stiahni(1);
 
 

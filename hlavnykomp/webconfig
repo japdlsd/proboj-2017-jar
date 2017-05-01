@@ -1,15 +1,8 @@
 # -*- coding: utf8 -*-
 
 DRUZINKY = [
-  ('veduci' , u'veduci', b'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' ),
-  ('bubokrki' , u'BUBOKRKI', b'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' ),
-  ('nulano' , u'nulano', b'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' ),
-  ('nahodicka' , u'nahodicka', b'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' ),
-  ('MAGA' , u'MAGA', b'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' ),
-  ('okno' , u'Windows Vista', b'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' ),
-  ('jedejedemasinka' , u'Jedejedemasinka', b'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' ),
-  ('m' , u'Makroωlnky', b'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' ),
-  ('paulinia' , u'paulinia', b'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' ),
+  ('a' , u'a', b'd9d05a60431b9728c028710a9b9d9871bbd1943f' ),
+  ('askar' , u'askar', b'3926333a9d7ee9d2745232db6ec19f8fdc084a03' ),
 ]
 
 GIT = 'https://github.com/trojsten/proboj-2016-jesen.git'
