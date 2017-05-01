@@ -11,8 +11,8 @@ using namespace std;
 #include "update.h"
 
 
-mapa m;
-masked_game_state stav;   // vzdy som hrac cislo 0
+mapa _m;
+masked_game_state _stav;   // vzdy som hrac cislo 0
 
 
 // main() zavola tuto funkciu, ked nacita mapu
@@ -36,12 +36,12 @@ int main() {
     unsigned int seed = time(NULL) * getpid();
     srand(seed);
     
-    nacitaj(cin, m);
+    nacitaj(cin, _m);
     fprintf(stderr, "START pid=%d, seed=%u\n", getpid(), seed);
     inicializuj();
 
     while (cin.good()) {
-        nacitaj(cin, stav);
+        nacitaj(cin, _stav);
         uloz(cout, zistiTah());
     }
 
